@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ page }}</title>
+</head>
+<body>
+    <h1>{{ page }}</h1>
+    <div>{{ content|safe }}</div>
+    <h2>Tags: {% for tag in tags %}<a href="{{ url_for('view_tag', tag=tag) }}">{{ tag }}</a>{% endfor %}</h2>
+    <h2>Media Files</h2>
+    {% for filename in os.listdir(UPLOAD_FOLDER) %}
+        {% if filename.endswith(('png', 'jpg', 'jpeg', 'gif')) %}
+            <img src="{{ url_for('uploaded_file', filename=filename) }}" alt="{{ filename }}" width="400">
+        {% elif filename.endswith(('mp3', 'wav', 'ogg')) %}
+            <audio controls>
+                <source src="{{ url_for('uploaded_file', filename=filename) }}" type="audio/{{ filename.rsplit('.', 1)[1] }}">
+                Your browser does not support the audio element.
+            </audio>
+        {% elif filename.endswith(('mp4')) %}
+            <video width="400" controls>
+                <source src="{{ url_for('uploaded_file', filename=filename) }}" type="video/mp4">
+                Your browser does not support the video element.
+            </video>
+        {% endif %}
+    {% endfor %}
+    <a href="{{ url_for('edit_page', page=page) }}">Edit</a>
+    <a href="{{ url_for('index') }}">Back to Home</a>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit {{ page }}</title>
+</head>
+<body>
+    <h1>Edit {{ page }}</h1>
+    <form method="POST">
+        <textarea name="content" rows="20" cols="80">{{ content }}</textarea><br>
+        <label for="tags">Tags (comma-separated):</label>
+        <input type="text" id="tags" name="tags" value="{{ ', '.join(tags) }}"><br>
+        <input type="submit" value="Save">
+    </form>
+    <a href="{{ url_for('view_page', page=page) }}">Cancel</a>
+</body>
+</html>

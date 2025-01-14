@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GPS Location</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
+    <script>
+        function initMap() {
+            var location = {lat: parseFloat('{{ latitude }}'), lng: parseFloat('{{ longitude }}')};
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 15,
+                center: location
+            });
+            var marker = new google.maps.Marker({
+                position: location,
+                map: map
+            });
+        }
+    </script>
+</head>
+<body onload="initMap()">
+    <h1>GPS Location</h1>
+    <div id="map" style="height: 500px; width: 100%;"></div>
+    <a href="{{ url_for('index') }}">Back to Home</a>
+</body>
+</html>
